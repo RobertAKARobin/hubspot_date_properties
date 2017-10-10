@@ -7,7 +7,34 @@ Date.prototype.getMonthWithZeroes = function(){
 }
 
 let startDate = new Date(2012, 06);
-goToNextDate();
+// goToNextDate();
+
+request({
+	method: 'POST',
+	url: 'https://api.hubapi.com/properties/v1/deals/properties?hapikey=' + ENV.HAPIKEY,
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({
+		name: 'test_456',
+		label: 'Test 456!',
+		groupName: 'revenue_forecast',
+		type: 'number'
+	})
+}, function(error, response, body){
+	var apiResponse = JSON.parse(body)
+	if(apiResponse.status == 'error'){
+		console.log({
+			success: false,
+			response: apiResponse
+		})
+	}else{
+		console.log({
+			success: true,
+			response: apiResponse
+		})
+	}
+});
 
 function goToNextDate(){
 	let currentDate = startDate.getFullYear() + '_' + startDate.getMonthWithZeroes();

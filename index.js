@@ -34,12 +34,11 @@ function goToNextDate(){
 		if(apiResponse.status == 'error'){
 			return;
 		}else{
-			return;
-			// if(currentDate != '2022_12'){
-			// 	return;
-			// }else{
-			// 	goToNextDate();
-			// }
+			if(year == '2012' && month == '07'){
+				return;
+			}else{
+				goToNextDate();
+			}
 		}
 	});
 }

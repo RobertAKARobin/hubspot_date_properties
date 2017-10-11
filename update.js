@@ -39,21 +39,16 @@ lineReader.eachLine('./data.csv', function(csvLine, isLast, next){
 		if(dealsToUpload.length == dealsPerAPIUpload || isLast){
 			requestParams.body = JSON.stringify(dealsToUpload);
 			console.log(dealCount + ' ' + dealsToUpload.length);
-			setTimeout(function(){
-				dealsToUpload = [];
-				console.log('SUCCESS');
-				next();
-			}, 10);
-			// request(requestParams, function(error, response, body){
-			// 	if(error){
-			// 		console.log(error);
-			// 		next(false);
-			// 	}else{
-			// 		console.log(body)
-			// 		dealsToUpload = [];
-			// 		next();
-			// 	}
-			// });
+			request(requestParams, function(error, response, body){
+				if(error){
+					console.log(error);
+					next(false);
+				}else{
+					console.log(body);
+					dealsToUpload = [];
+					next();
+				}
+			});
 		}else{
 			next();
 		}
